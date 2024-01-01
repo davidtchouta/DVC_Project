@@ -1,0 +1,5 @@
+[core]
+    autostage = true
+    remote = depotdistant
+['remote "depotdistant"']
+    url = gdrive://17os0_JIgHCsFUPhaecXeknK__Svq1k1-

@@ -1,0 +1,9 @@
+notebook
+dvc[all]
+tensorflow
+pandas
+pillow
+matplotlib
+scikit-learn
+isort
+pickle-mixin
