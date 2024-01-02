@@ -1,1 +1,1 @@
-modele: GradientBoostingClassifier
+modele: LogisticRegression

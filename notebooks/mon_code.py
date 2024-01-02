@@ -9,6 +9,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
+import json
+import joblib
 train_data = pd.read_csv('C:\\Users\\dvid\\Documents\\Python_ML\\Git\\data\\external\\mnist27_train.csv')
 test_data = pd.read_csv('C:\\Users\\dvid\\Documents\\Python_ML\\Git\\data\\external\\mnist27_test.csv')
 
@@ -28,7 +30,7 @@ def entrainer_modele(params):
     """Entraîner le modèle en fonction des paramètres."""
     modele = params.get('modele', 'modele_par_defaut')
     
-    if modele == 'LogisticRegression()':
+    if modele == 'LogisticRegression':
         print("Entraînement du LogisticRegression()...")
         # Code pour entraîner le modèle 1
         logistic_model = LogisticRegression()
@@ -37,6 +39,12 @@ def entrainer_modele(params):
         # Prédiction et évaluation
         y_pred_logistic = logistic_model.predict(X_test)
         accuracy_logistic = accuracy_score(y_test, y_pred_logistic)
+        # Enregistrer l'accuracy dans un fichier metrics.json
+        with open('metrics.json', 'w') as f:
+            json.dump({"accuracy": accuracy_logistic}, f)
+
+        # Sauvegarder le modèle entraîné
+        joblib.dump(logistic_model, 'trained_model.pkl')
         print(f"Accuracy Logistic Regression: {accuracy_logistic}")
     elif modele == 'GradientBoostingClassifier':
         # Code pour entraîner le modèle 2
@@ -48,6 +56,12 @@ def entrainer_modele(params):
         # Prédiction et évaluation
         y_pred_gb = gradient_boosting_model.predict(X_test)
         accuracy_gb = accuracy_score(y_test, y_pred_gb)
+        # Enregistrer l'accuracy dans un fichier metrics.json
+        with open('metrics.json', 'w') as f:
+            json.dump({"accuracy": accuracy_gb}, f)
+
+        # Sauvegarder le modèle entraîné
+        joblib.dump(gradient_boosting_model, 'trained_model.pkl')
         print(f"Accuracy Gradient Boosting: {accuracy_gb}")
     else:
         print(f"Modèle {modele} non reconnu. Utilisation du modèle par défaut.")
