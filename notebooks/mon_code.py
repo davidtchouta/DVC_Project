@@ -20,15 +20,37 @@ y_train = train_data['y']
 X_test = test_data[['x_1', 'x_2']]
 y_test = test_data['y']
 
+# Définir le chemin du fichier metrics.json
+chemin_fichier = 'metrics.json'
+
+def charger_metrics_json(chemin_fichier):
+    """Charger les données existantes du fichier metrics.json."""
+    try:
+        with open(chemin_fichier, 'r') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        # Si le fichier n'existe pas, retourner un dictionnaire vide
+        data = {}
+    return data
+
+def sauvegarder_metrics_json(data, chemin_fichier):
+    """Sauvegarder les données dans le fichier metrics.json."""
+    with open(chemin_fichier, 'w') as f:
+        json.dump(data, f, indent=4)
+
+
 def charger_params_yaml(chemin_fichier):
     """Charger les paramètres à partir du fichier YAML."""
     with open(chemin_fichier, 'r') as fichier:
         params = yaml.safe_load(fichier)
     return params
 
-def entrainer_modele(params):
+def entrainer_modele(params, data, chemin_fichier):
     """Entraîner le modèle en fonction des paramètres."""
     modele = params.get('modele', 'modele_par_defaut')
+
+    """Initialisation du dictionnanire data"""
+    data = {}
     
     if modele == 'LogisticRegression':
         print("Entraînement du LogisticRegression()...")
@@ -39,10 +61,11 @@ def entrainer_modele(params):
         # Prédiction et évaluation
         y_pred_logistic = logistic_model.predict(X_test)
         accuracy_logistic = accuracy_score(y_test, y_pred_logistic)
-        # Enregistrer l'accuracy dans un fichier metrics.json
-        with open('metrics.json', 'w') as f:
-            json.dump({"accuracy": accuracy_logistic}, f)
-
+        # Ajouter la nouvelle accuracy au dictionnaire existant
+        modele_str = str(logistic_model)
+        data[modele_str] = accuracy_logistic
+        # Sauvegarder les données dans le fichier metrics.json
+        sauvegarder_metrics_json(data, chemin_fichier)
         # Sauvegarder le modèle entraîné
         joblib.dump(logistic_model, 'trained_model.pkl')
         print(f"Accuracy Logistic Regression: {accuracy_logistic}")
@@ -56,10 +79,11 @@ def entrainer_modele(params):
         # Prédiction et évaluation
         y_pred_gb = gradient_boosting_model.predict(X_test)
         accuracy_gb = accuracy_score(y_test, y_pred_gb)
-        # Enregistrer l'accuracy dans un fichier metrics.json
-        with open('metrics.json', 'w') as f:
-            json.dump({"accuracy": accuracy_gb}, f)
-
+        # Ajouter la nouvelle accuracy au dictionnaire existant
+        modele_str = str(gradient_boosting_model)
+        data[modele_str] = accuracy_gb
+        # Sauvegarder les données dans le fichier metrics.json
+        sauvegarder_metrics_json(data, chemin_fichier)
         # Sauvegarder le modèle entraîné
         joblib.dump(gradient_boosting_model, 'trained_model.pkl')
         print(f"Accuracy Gradient Boosting: {accuracy_gb}")
@@ -69,9 +93,13 @@ def entrainer_modele(params):
 if __name__ == "__main__":
     # Chemin vers le fichier params.yaml
     chemin_params_yaml = 'C:\\Users\\dvid\\Documents\\Python_ML\\Git\\params.yaml'
+    chemin_fichier = 'metrics.json'
     
     # Charger les paramètres à partir du fichier params.yaml
     params = charger_params_yaml(chemin_params_yaml)
+
+     # Charger les données existantes du fichier metrics.json
+    data = charger_metrics_json(chemin_fichier)
     
     # Entraîner le modèle en fonction des paramètres
-    entrainer_modele(params)
+    entrainer_modele(params,data, chemin_fichier)
