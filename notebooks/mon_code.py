@@ -29,7 +29,7 @@ def entrainer_modele(params):
     modele = params.get('modele', 'modele_par_defaut')
     
     if modele == 'LogisticRegression()':
-        print("Entraînement du modèle 1...")
+        print("Entraînement du LogisticRegression()...")
         # Code pour entraîner le modèle 1
         logistic_model = LogisticRegression()
         logistic_model.fit(X_train, y_train)
@@ -38,9 +38,17 @@ def entrainer_modele(params):
         y_pred_logistic = logistic_model.predict(X_test)
         accuracy_logistic = accuracy_score(y_test, y_pred_logistic)
         print(f"Accuracy Logistic Regression: {accuracy_logistic}")
-    elif modele == 'modele_2':
+    elif modele == 'GradientBoostingClassifier':
         # Code pour entraîner le modèle 2
-        print("Entraînement du modèle 2...")
+        print("Entraînement du GradientBoostingClassifier()...")
+        # Création et entraînement du modèle
+        gradient_boosting_model = GradientBoostingClassifier()
+        gradient_boosting_model.fit(X_train, y_train)
+
+        # Prédiction et évaluation
+        y_pred_gb = gradient_boosting_model.predict(X_test)
+        accuracy_gb = accuracy_score(y_test, y_pred_gb)
+        print(f"Accuracy Gradient Boosting: {accuracy_gb}")
     else:
         print(f"Modèle {modele} non reconnu. Utilisation du modèle par défaut.")
 

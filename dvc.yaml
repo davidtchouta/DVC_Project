@@ -1,0 +1,5 @@
+stages:
+  training:
+    cmd: python ./notebooks/mon_code.py --params params.yaml
+
+ 
