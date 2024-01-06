@@ -62,7 +62,7 @@ def entrainer_modele(params, data, chemin_fichier):
         y_pred_logistic = logistic_model.predict(X_test)
         accuracy_logistic = accuracy_score(y_test, y_pred_logistic)
         # Ajouter la nouvelle accuracy au dictionnaire existant
-        modele_str = str(logistic_model)
+        modele_str = str(accuracy_logistic)
         data[modele_str] = accuracy_logistic
         # Sauvegarder les données dans le fichier metrics.json
         sauvegarder_metrics_json(data, chemin_fichier)
@@ -80,7 +80,7 @@ def entrainer_modele(params, data, chemin_fichier):
         y_pred_gb = gradient_boosting_model.predict(X_test)
         accuracy_gb = accuracy_score(y_test, y_pred_gb)
         # Ajouter la nouvelle accuracy au dictionnaire existant
-        modele_str = str(gradient_boosting_model)
+        modele_str = str(accuracy_gb)
         data[modele_str] = accuracy_gb
         # Sauvegarder les données dans le fichier metrics.json
         sauvegarder_metrics_json(data, chemin_fichier)

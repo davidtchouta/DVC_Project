@@ -2,4 +2,6 @@ stages:
   training:
     cmd: python ./notebooks/mon_code.py --params params.yaml
 
- 
+    outs:
+      - metricss.yaml:
+          cache: false

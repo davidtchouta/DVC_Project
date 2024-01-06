@@ -1,6 +1,11 @@
-+--------------------------------------------------------+
-| Experiment | Created      | modele                     |
-|------------+--------------+----------------------------|
-| workspace  | -            | GradientBoostingClassifier |
-| master     | Jan 02, 2024 | LogisticRegression         |
-+--------------------------------------------------------+
++------------------------------------------------------------------+
+| Experiment               | Created  | modele                     |
+|--------------------------+----------+----------------------------|
+| workspace                | -        | GradientBoostingClassifier |
+| master                   | 12:56 AM | LogisticRegression         |
+| \u251c\u2500\u2500 db907ae [blowy-sook] | 01:39 AM | GradientBoostingClassifier |
+| \u251c\u2500\u2500 964d169 [fetal-salp] | 01:39 AM | LogisticRegression         |
+| \u251c\u2500\u2500 d8ff0f9 [brief-lick] | 01:33 AM | GradientBoostingClassifier |
+| \u251c\u2500\u2500 a643e4f [lying-he'd] | 01:31 AM | LogisticRegression         |
+| \u2514\u2500\u2500 9da1806 [axile-yank] | 12:58 AM | LogisticRegression         |
++------------------------------------------------------------------+
